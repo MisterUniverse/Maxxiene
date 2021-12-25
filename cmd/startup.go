@@ -31,7 +31,14 @@ var startupCmd = &cobra.Command{
 	Long:  `Here Maxx will will begin the morning routine and open all the browser windows we want to program her to open. along with other utilities we need to start working.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		user := "Desmond"
-		fmt.Printf("Good morning %v, I am getting your tools ready. I will start by opening some browsers for you.", user)
+		fmt.Printf("Good morning %v, I am getting your tools ready. I will start by preparing a work environment and then opening some browser tabs for you. \n", user)
+
+		envExist, err := fileOrDirExists("MaxxConfig.json")
+		check(err)
+		if !envExist {
+			createWorkflowDirectories()
+		}
+
 		f, err := os.Open("./urls/startup_links.txt")
 		check(err)
 
@@ -47,6 +54,74 @@ func check(e error) {
 	if e != nil {
 		fmt.Println(e)
 	}
+}
+
+func createWorkflowDirectories() {
+	workdirs := []string{"./Projects", "./Notes", "./Todos"}
+
+	createConfig()
+
+	for _, v := range workdirs {
+		makeDir(v)
+	}
+
+	setupTodos()
+	appendData()
+}
+
+func createConfig() {
+	config, err := os.Create("MaxxConfig.json")
+	check(err)
+	defer config.Close()
+}
+
+func setupTodos() {
+	path := "./Todos/main_todo_list.md"
+	todo, err := os.Create(path)
+	check(err)
+	defer todo.Close()
+}
+func appendData() {
+	content := "# Todo List"
+	path := "./Todos/main_todo_list.md"
+	file, err := os.OpenFile(path, os.O_APPEND|os.O_WRONLY, 0644)
+	defer file.Close()
+	check(err)
+	file.Write([]byte(content))
+}
+func makeDir(dirName string) {
+	exist, err := fileOrDirExists(dirName)
+	check(err)
+	if !exist {
+		err := os.Mkdir(dirName, 0755)
+		check(err)
+	}
+}
+
+func fileOrDirExists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil {
+		return true, nil
+	}
+	if os.IsNotExist(err) {
+		return false, nil
+	}
+	return false, err
+}
+
+func getWorkingDir() {
+	dir, err := os.Getwd()
+	check(err)
+	fmt.Println(dir)
+}
+
+func getDirContents(path string) {
+	/*entries, err := os.ReadDir(path)
+	check(err)
+	//iterate through dir and print name
+	for _, entry := range entries {
+		fmt.Println(entry.Name())
+	}*/
 }
 
 func init() {

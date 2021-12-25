@@ -1,0 +1,28 @@
+# data_structs_list
+- [] Intro
+- [] Complexity Analysis
+- [] Memory
+- [] Big O Notation
+- [] Logarithm
+- [] Arrays
+- [] Linked Lists
+- [] Hash Tables
+    - [] "Get notes from Golang/HashTable folder"
+    - [] Bloom filter
+    - [] Count-min sketch
+    - [] Distributed hash table
+    - [] Dynamic perfect hash table
+    - [] Hash array mapped trie
+    - [] Hash list
+    - [] Hash Table
+    - [] Hash tree
+    - [] Hash trie
+    - [] Koorde
+    - [] Prefix hash tree
+    - [] Rolling hash
+    - [] MinHash
+    - [] Quotient filter
+- [] Stacks and Queues
+- [] Strings 
+- [] Graphs
+- [] Trees

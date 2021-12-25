@@ -1,0 +1,12 @@
+# Go Journey -> start: 10/17/2021  count: 33  date: 11/19/2021
+- Slice Practice
+- Review Basics
+- Katas
+- Quiz Game
+- Katas
+- Choose Your Own Adventure
+- More Katas
+- Data Structs & Algo's
+- Bot
+- Networking
+- SlabpacK feat. unMaker beta
