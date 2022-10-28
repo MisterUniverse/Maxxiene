@@ -14,3 +14,8 @@
 - [] Finish gRPC for chat server w/ Deni
 - [] Prep for google foobar w/ Burns
 - [] Develop pocketbase project
+- [] Update Janice
+- [] Plan out WOW bot
+- [] Reorganize desk setup
+- [] Pull down github repo's 
+- [] move projects to user dir
