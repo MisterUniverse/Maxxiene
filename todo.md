@@ -6,8 +6,6 @@
     - [] Mobile Hacking
     - [] How to Write Good Reports and Use the CVSS Calculator
     - [] Introducing Hacker101 CTF
-- [] Clean up toolbox code/ refactor the todo cmd and the notes cmd
-- [] Set up config file for toolbox
 - [] Clean up SnD and refactor ViperCamCrawler
 - [] Make backups and git commit setup
 
@@ -17,5 +15,6 @@
 - [] Update Janice
 - [] Plan out WOW bot
 - [] Reorganize desk setup
-- [] Pull down github repo's 
-- [] move projects to user dir
+- [] update the hp-slave and implement guard clauses
+- [] adding new items has issues if there is white space in file i assume
+- [] test 
