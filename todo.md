@@ -6,16 +6,9 @@
     - [] Mobile Hacking
     - [] How to Write Good Reports and Use the CVSS Calculator
     - [] Introducing Hacker101 CTF
-- [] Clean up toolbox code/ refactor the todo cmd and the notes cmd
-- [] Set up config file for toolbox
 - [] Clean up SnD and refactor ViperCamCrawler
 - [] Make backups and git commit setup
 
 - [] Finish gRPC for chat server w/ Deni
 - [] Prep for google foobar w/ Burns
 - [] Develop pocketbase project
-- [] Update Janice
-- [] Plan out WOW bot
-- [] Reorganize desk setup
-- [] Pull down github repo's 
-- [] move projects to user dir
