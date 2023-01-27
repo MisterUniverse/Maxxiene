@@ -1,6 +1,3 @@
-/*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
-*/
 package cmd
 
 import (
@@ -58,7 +55,6 @@ func printNoteArchive() {
 	}
 }
 
-// notesCmd represents the notes command
 var notesCmd = &cobra.Command{
 	Use:   "notes",
 	Short: "A brief description of your command",
