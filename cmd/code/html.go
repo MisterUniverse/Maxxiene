@@ -7,7 +7,8 @@ import (
 )
 
 var (
-	html string
+	t1 bool
+	t2 bool
 )
 
 var htmlCmd = &cobra.Command{
@@ -15,22 +16,21 @@ var htmlCmd = &cobra.Command{
 	Short: "A brief description of your command",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		fm.Copy("./templates/html/index.html", "../test.html")
+		// need quick reference for template files
+		if args[0] != "" {
+			if t1 {
+				fm.CopyFile("./templates/html/index.html", args[0]+".html")
+			} else if t2 {
+				fm.CopyFile("./templates/html/divs.html", args[0]+".html")
+			}
+		}
+
 	},
 }
 
 func init() {
-	htmlCmd.Flags().StringVarP(&html, "html-basic", "b", "", "Creates a basic html boilerplate")
-	// htmlCmd.Flags().StringVarP(&html, "server", "s", "", "Creates a basic tcp server")
+	htmlCmd.Flags().BoolVar(&t1, "t1", false, "Creates a basic html boilerplate")
+	htmlCmd.Flags().BoolVar(&t2, "t2", false, "Creates four divs")
+	htmlCmd.MarkFlagsMutuallyExclusive("t1", "t2")
 	CodeCmd.AddCommand(htmlCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// htmlCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// htmlCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

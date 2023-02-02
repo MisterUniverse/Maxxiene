@@ -59,7 +59,10 @@ You can add as many as you would like (I think).
 
 ## TODO:
 - [] finish boilerplate code sections
+    - [] html section
+    - [] css section
+    - [] js section
+    - [] go section
+    - [] python section
 - [] add command that set's up a work environment
     git clone https://github.com/MisterUniverse/env_scripts.git
-
-- [] filemanager copy function doesn't work.
