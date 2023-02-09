@@ -1,8 +1,6 @@
 package code
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
 )
 
@@ -12,7 +10,7 @@ var CodeCmd = &cobra.Command{
 	Short: "The 'code' pallette is used for setting up quick work environments",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("code called")
+		cmd.Help()
 	},
 }
 

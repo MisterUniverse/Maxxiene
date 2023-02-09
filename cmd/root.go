@@ -6,6 +6,7 @@ package cmd
 import (
 	"fmt"
 	"maxx/cmd/code"
+	"maxx/cmd/env"
 	"maxx/cmd/info"
 	"maxx/cmd/net"
 	"os"
@@ -40,6 +41,7 @@ func addSubcommand() {
 	rootCmd.AddCommand(net.NetCmd)
 	rootCmd.AddCommand(info.InfoCmd)
 	rootCmd.AddCommand(code.CodeCmd)
+	rootCmd.AddCommand(env.EnvCmd)
 }
 
 func init() {
