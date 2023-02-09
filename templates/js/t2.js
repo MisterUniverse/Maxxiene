@@ -1,0 +1,1 @@
+console.log("T2.js template")
