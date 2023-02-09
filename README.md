@@ -64,5 +64,6 @@ You can add as many as you would like (I think).
     - [] js section
     - [] go section
     - [] python section
-- [] add command that set's up a work environment
+- [] add command that set's up a work environment set execution policy and install winget first
     git clone https://github.com/MisterUniverse/env_scripts.git
+
