@@ -1,8 +1,8 @@
 package code
 
 import (
-	"log"
 	fm "maxx/filemanager"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -14,25 +14,58 @@ var (
 	go4 bool
 )
 
+func getGOTemplateFlag() string {
+	if go1 {
+		return "golang_t1"
+	} else if go2 {
+		return "golang_t2"
+	} else if go3 {
+		return "golang_t3"
+	} else if go4 {
+		return "golang_t4"
+	} else {
+		return ""
+	}
+}
+
 // goCmd represents the go command
 var goCmd = &cobra.Command{
 	Use:   "go",
-	Short: "Creates some boiler plate golang code",
-	Long:  ``,
+	Short: "This command will generate some boiler plate go code",
+	Long: `** go cmd description **
+==============================================================================================================
+
+Creates boiler plate go code based on the "t1.go-t4.go" files located in maxx's template directory.
+Maxxiene can handle a total of 4 template .go files (this will be better in the future).
+Each template file has to have this SPECIFIC naming convention:
+
+- t1.go
+- t2.go
+- t3.go
+- t4.go
+	
+(This will also change and improve in the future).`,
+
 	Run: func(cmd *cobra.Command, args []string) {
-		// need quick reference for template files
-		if len(args) != 0 && args[0] != "" {
-			if go1 {
-				fm.CopyFile("./templates/html/t1.html", args[0]+".html")
-			} else if go2 {
-				fm.CopyFile("./templates/html/t2.html", args[0]+".html")
-			} else if go3 {
-				fm.CopyFile("./templates/html/t3.html", args[0]+".html")
-			} else if go4 {
-				fm.CopyFile("./templates/html/t4.html", args[0]+".html")
+		if len(args) > 0 && args[0] != "" {
+			filename := args[0] + ".go"
+			if flag := getGOTemplateFlag(); flag != "" {
+				if tmpl, ok := templates.templates[flag]; ok {
+					fm.CopyFile(tmpl, filename)
+					cmd.Println("Generated file ", filename)
+				} else {
+					cmd.PrintErrf("Error: Invalid template flag: %s\n", flag)
+					os.Exit(1)
+				}
+			} else {
+				cmd.PrintErrln("Error: Please specify a template flag.")
+				cmd.Usage()
+				os.Exit(1)
 			}
 		} else {
-			log.Println(" [ERROR] - Please name your file! `./maxx html --t# {name of file}`")
+			cmd.PrintErrln("Error: Please specify a filename.")
+			cmd.Usage()
+			os.Exit(1)
 		}
 	},
 }

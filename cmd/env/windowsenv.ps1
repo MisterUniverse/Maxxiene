@@ -14,7 +14,7 @@ winget install --id Git.Git -e --source winget
 winget install -e --id Neovim.Neovim
 
 # install vs-code
-winget install -e --id Microsoft.VisualStudioCodema
+winget install -e --id Microsoft.VisualStudioCode
 
 # install golang
 winget install -e --id GoLang.Go.1.19
@@ -24,3 +24,9 @@ winget install -e --id Python.Python.3.11
 
 # install node.js
 winget install -e --id OpenJS.NodeJS
+
+# install tesseract
+winget install -e --id UB-Mannheim.TesseractOCR
+
+# install wireshark
+winget install -e --id WiresharkFoundation.Wireshark

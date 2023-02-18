@@ -1,0 +1,1 @@
+print("t2.py Template file")

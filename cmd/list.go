@@ -17,7 +17,7 @@ var listCmd = &cobra.Command{
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("========================")
-		b := fm.ReadFile("../todo.md")
+		b := fm.ReadFile("./todo.md")
 		fmt.Println("\n" + string(b))
 		fmt.Println("========================")
 	},

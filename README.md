@@ -58,12 +58,13 @@ https://example.com/
 You can add as many as you would like (I think).
 
 ## TODO:
-- [] finish boilerplate code sections
-    - [] html section
-    - [] css section
-    - [] js section
-    - [] go section
-    - [] python section
+- [/] finish boilerplate code sections
+    - [X] html section
+    - [X] css section
+    - [X] js section
+    - [X] go section
+    - [X] python section
+    - [] Clean and Optimize
 - [] add command that set's up a work environment set execution policy and install winget first
     git clone https://github.com/MisterUniverse/env_scripts.git
 

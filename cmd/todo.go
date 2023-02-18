@@ -32,7 +32,7 @@ func addItemToCheckList(item string) (string, error) {
 		close(data)
 	}()
 	d := <-done
-	if d == true {
+	if d {
 		return "Successfully added item to checklist", nil
 	} else {
 		return "", errors.New("failed to add item to checklist")

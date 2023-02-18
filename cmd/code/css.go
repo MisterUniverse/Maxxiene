@@ -1,8 +1,8 @@
 package code
 
 import (
-	"log"
 	fm "maxx/filemanager"
+	"os"
 
 	"github.com/spf13/cobra"
 )
@@ -14,24 +14,57 @@ var (
 	css4 bool
 )
 
+func getCSSTemplateFlag() string {
+	if css1 {
+		return "css_t1"
+	} else if css2 {
+		return "css_t2"
+	} else if css3 {
+		return "css_t3"
+	} else if css4 {
+		return "css_t4"
+	} else {
+		return ""
+	}
+}
+
 var cssCmd = &cobra.Command{
 	Use:   "css",
-	Short: "A brief description of your command",
-	Long:  ``,
+	Short: "This command will generate some boiler plate css",
+	Long: `** css cmd description**
+==============================================================================================================
+
+Creates boiler plate css based on the "t1.css-t4.css" files located in maxx's template directory.
+Maxxiene can handle a total of 4 template .css files (this will be better in the future).
+Each template file has to have this SPECIFIC naming convention:
+
+- t1.css
+- t2.css
+- t3.css
+- t4.css
+	
+(This will also change and improve in the future).`,
+
 	Run: func(cmd *cobra.Command, args []string) {
-		// need quick reference for template files
-		if len(args) != 0 && args[0] != "" {
-			if css1 {
-				fm.CopyFile("./templates/html/t1.html", args[0]+".html")
-			} else if css2 {
-				fm.CopyFile("./templates/html/t2.html", args[0]+".html")
-			} else if css3 {
-				fm.CopyFile("./templates/html/t3.html", args[0]+".html")
-			} else if css4 {
-				fm.CopyFile("./templates/html/t4.html", args[0]+".html")
+		if len(args) > 0 && args[0] != "" {
+			filename := args[0] + ".css"
+			if flag := getCSSTemplateFlag(); flag != "" {
+				if tmpl, ok := templates.templates[flag]; ok {
+					fm.CopyFile(tmpl, filename)
+					cmd.Println("Generated file ", filename)
+				} else {
+					cmd.PrintErrf("Error: Invalid template flag: %s\n", flag)
+					os.Exit(1)
+				}
+			} else {
+				cmd.PrintErrln("Error: Please specify a template flag.")
+				cmd.Usage()
+				os.Exit(1)
 			}
 		} else {
-			log.Println(" [ERROR] - Please name your file! `./maxx html --t# {name of file}`")
+			cmd.PrintErrln("Error: Please specify a filename.")
+			cmd.Usage()
+			os.Exit(1)
 		}
 	},
 }
