@@ -1,5 +1,9 @@
 package server
+/*
+http server was grabbed from: https://github.com/snwfdhmp/simplehttp
 
+it really is simple and easy to use. check it out
+*/
 import (
 	"log"
 	"net/http"
