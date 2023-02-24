@@ -99,6 +99,7 @@ INFO[0000] Serving ./ over 0.0.0.0:31415... Stop with ^C
     git clone https://github.com/MisterUniverse/env_scripts.git
 - [] Server command
     - [] http
+       - [] need to open server on go routine
     - [] tcp
     - [] udp
     - [] rtp
