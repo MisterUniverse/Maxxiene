@@ -97,4 +97,8 @@ INFO[0000] Serving ./ over 0.0.0.0:31415... Stop with ^C
     - [] Clean and Optimize
 - [] add command that set's up a work environment set execution policy and install winget first
     git clone https://github.com/MisterUniverse/env_scripts.git
-
+- [] Server command
+    - [] http
+    - [] tcp
+    - [] udp
+    - [] rtp
