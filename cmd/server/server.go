@@ -7,8 +7,8 @@ import (
 // serverCmd represents the server command
 var ServerCmd = &cobra.Command{
 	Use:   "server",
-	Short: "Spool up a server rigth quick.",
-	Long: `The server command allows you to quicly spool up different types of servers.
+	Short: "Spool up a server right quick.",
+	Long: `The server command allows you to quickly spool up different types of servers.
 For example:
 - http
 - tcp

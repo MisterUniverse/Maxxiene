@@ -1,4 +1,5 @@
 package server
+
 /*
 http server was grabbed from: https://github.com/snwfdhmp/simplehttp
 
