@@ -1,10 +1,5 @@
 package server
 
-/*
-http server was grabbed from: https://github.com/snwfdhmp/simplehttp
-
-it really is simple and easy to use. check it out
-*/
 import (
 	"log"
 	"net/http"
@@ -32,15 +27,15 @@ With '-p' arg, specify the port to serve on.
 
 		http.Handle(urlPrefix, http.StripPrefix(urlPrefix, fs))
 
-		log.Printf("Serving %s over 0.0.0.0:%s... Stop with ^C", dirToServe, serverPort)
+		log.Printf("Serving %s over localhost:%s... Stop with ^C", dirToServe, serverPort)
 		http.ListenAndServe(":"+serverPort, nil)
 	},
 }
 
 func init() {
-	ServerCmd.Flags().StringVarP(&dirToServe, "dir", "d", "./", "root directory to be served (ex: /var/www) [default is ./]")
+	ServerCmd.Flags().StringVarP(&dirToServe, "dir", "d", "./serve", "root directory to be served (ex: /var/www) [default is ./]")
 
-	ServerCmd.Flags().StringVar(&serverPort, "port", "8080", "port to listen to [default is 8080)")
+	ServerCmd.Flags().StringVar(&serverPort, "port", "2020", "port to listen to [default is 2020)")
 	ServerCmd.Flags().StringVar(&urlPrefix, "prefix", "/", "prefix required (ex: /static), suffix to host:port [default is /]")
 	ServerCmd.AddCommand(httpCmd)
 }
