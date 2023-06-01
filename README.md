@@ -88,6 +88,7 @@ INFO[0000] Serving ./ over 0.0.0.0:31415... Stop with ^C
 
 
 ## TODO:
+- [] Add shred command
 - [/] finish boilerplate code sections
     - [X] html section
     - [X] css section

@@ -16,10 +16,3 @@
 5. Be sure to include the `include` folder in the build path, then build your protobuf stuff by going to the dir where the `.proto` file is located and then using `protoc --go_out=. --go_opt_grpc=. {name of protofile}` to create your gRPC stuff 
 
 6. Write your code then `go mod tidy` to update imports
-
-
-
-
-
-kkkkk:
-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
