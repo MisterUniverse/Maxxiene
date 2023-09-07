@@ -1,14 +1,23 @@
 /*
-Copyright © 2022 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 Desmond Harris
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 package cmd
 
 import (
 	"fmt"
-	"maxx/cmd/code"
-	"maxx/cmd/env"
-	"maxx/cmd/info"
-	"maxx/cmd/net"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -20,8 +29,8 @@ var cfgFile string
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "maxx",
-	Short: "Hit me up I gotcha mayne",
-	Long:  ``,
+	Short: "A productivity tool",
+	Long:  `Maxxiene is a personalized cli to help with day to day task.`,
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
@@ -36,14 +45,6 @@ func Execute() {
 	}
 }
 
-// Execute adds all child commands to the root command and sets flags appropriately
-func addSubcommand() {
-	rootCmd.AddCommand(net.NetCmd)
-	rootCmd.AddCommand(info.InfoCmd)
-	rootCmd.AddCommand(code.CodeCmd)
-	rootCmd.AddCommand(env.EnvCmd)
-}
-
 func init() {
 	cobra.OnInitialize(initConfig)
 
@@ -51,14 +52,11 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	addSubcommand()
-
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.maxx.yaml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
-
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -71,7 +69,7 @@ func initConfig() {
 		home, err := os.UserHomeDir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".src" (without extension).
+		// Search config in home directory with name ".maxx" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigType("yaml")
 		viper.SetConfigName(".maxx")

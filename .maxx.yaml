@@ -1,0 +1,28 @@
+# config.yaml
+general:
+  logLevel: "info"
+
+taskManagement:
+  defaultList: "personal"
+  showCompleted: false
+
+fileOperations:
+  defaultDirectory: "./files"
+
+blogManagement:
+  defaultPlatform: "Hugo"
+  apiKey: ""
+
+webScraping:
+  defaultTimeout: 30
+  userAgent: "YourCustomUserAgent"
+
+bookmarkManager:
+  defaultCategory: "Development"
+
+codeSnippetManager:
+  defaultLanguage: "Go"
+
+environmentManager:
+  defaultEnvFile: "./.env"
+

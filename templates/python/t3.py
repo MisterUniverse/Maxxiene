@@ -1,1 +1,0 @@
-print("t3.py Template file")
