@@ -13,7 +13,7 @@ A personalized cli for day to day tasks.
 
 ## backup cmd
 - `maxx backup {FileOrDirectory}`: Backup a file or directory. Files get saved as a .mxbkup file
-- `maxx backup --config -c`: Backs up the app configuration and supporting files
+- `maxx backup --config or -c`: Backs up the app configuration and supporting files
 
 ## convert cmd
 - `maxx convert md2html` "Converts a markdown file into an html file"
