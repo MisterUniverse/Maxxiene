@@ -18,6 +18,10 @@ package cmd
 
 import (
 	"fmt"
+	"maxx/cmd/convert"
+	"maxx/cmd/proc"
+	"maxx/cmd/sites"
+	"maxx/cmd/task"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -45,13 +49,20 @@ func Execute() {
 	}
 }
 
+func addSubCommand() {
+	rootCmd.AddCommand(task.TaskCmd)
+	rootCmd.AddCommand(sites.SitesCmd)
+	rootCmd.AddCommand(convert.ConvertCmd)
+	rootCmd.AddCommand(proc.ProcCmd)
+}
+
 func init() {
 	cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-
+	addSubCommand()
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.maxx.yaml)")
 
 	// Cobra also supports local flags, which will only run

@@ -1,0 +1,4 @@
+- [ ] CCNA study guide
+- [ ] Add Ani-cli into terminal
+- [ ] Arch install
+- [ ] get pgp set up
