@@ -7,8 +7,10 @@ A personalized cli for day to day tasks.
 - `maxx convert`: "A way to convert files"
 - `maxx proc`: "Running process utilities"
 - `maxx setup`: "Set up initial configuration"
+- `maxx shred`: "Shreds a file or directory"
 - `maxx sites`: "A simple bookmark manager"
-- `maxx task`: Task/todo manager
+- `maxx task`: "Task/todo manager"
+- `maxx version`: "Prints the version number"
 
 
 ## backup cmd
@@ -25,6 +27,9 @@ A personalized cli for day to day tasks.
 
 ## setup cmd
 - `maxx setup` Sets up the initial configuration. ex:(todo.md, cofig/.env, data, etc.).
+
+## shred cmd
+- `maxx shred {fileOrDirectory}`: Delete a file or directory
 
 ## sites cmd
 - `maxx sites add {name} {url} {category}` Adds a bookmark to your bookmarks.json file.
