@@ -5,6 +5,7 @@ package proc
 
 import (
 	"fmt"
+	"os"
 	"maxx/pkg/procmgr"
 
 	"github.com/spf13/cobra"
@@ -92,7 +93,8 @@ func createMemoryDump(pid int, name string) error {
 }
 
 func init() {
-	viper.SetConfigFile("config/.env")
+	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
+	viper.SetConfigFile(localAppData+"\\config\\.env")
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Printf("%s\n", err)
 	}

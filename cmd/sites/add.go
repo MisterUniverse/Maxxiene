@@ -42,7 +42,8 @@ var addCmd = &cobra.Command{
 }
 
 func init() {
-	viper.SetConfigFile("config/.env")
+	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
+	viper.SetConfigFile(localAppData+"\\config\\.env")
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Printf("%s\n", err)
 	}

@@ -8,6 +8,7 @@ import (
 	"maxx/pkg/filemgr"
 	"path/filepath"
 	"time"
+	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -76,7 +77,8 @@ func backup(path string) error {
 func init() {
 	backupCmd.Flags().BoolP("config", "c", false, "Backup every value from a predefined map")
 	rootCmd.AddCommand(backupCmd)
-	viper.SetConfigFile("config/.env")
+	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
+	viper.SetConfigFile(localAppData+"\\config\\.env")
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Printf("%s\n", err)
 	}

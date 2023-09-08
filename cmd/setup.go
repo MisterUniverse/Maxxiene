@@ -7,6 +7,7 @@ package cmd
 
 import (
 	"fmt"
+	"os"
 
 	"maxx/pkg/filemgr"
 
@@ -18,8 +19,14 @@ var setupCmd = &cobra.Command{
 	Use:   "setup",
 	Short: "Set up initial configuration",
 	Run: func(cmd *cobra.Command, args []string) {
+		localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
+		if localAppData == "" {
+			fmt.Println("Could not find LOCALAPPDATA environment variable")
+			return
+		}
+
 		// Create directories
-		directories := []string{"backups", "config", "data"}
+		directories := []string{localAppData, localAppData+"\\backups", localAppData+"\\config", localAppData+"\\data"}
 		for _, dir := range directories {
 			if err := filemgr.CreateDirectory(dir); err != nil {
 				fmt.Println(err)
@@ -29,22 +36,22 @@ var setupCmd = &cobra.Command{
 
 		// Create .env file
 		envValues := map[string]string{
-			"TODO_FILE_PATH": "./todo.md",
-			"CONFIG_DIR":     "./config",
-			"DATA_DIR":       "./data",
-			"BOOKMARKS":      "./data/bookmarks.json",
-			"BACKUPS":        "./backups",
+			"TODO_FILE_PATH": localAppData+"\\todo.md",
+			"CONFIG_DIR":     localAppData+"\\config",
+			"DATA_DIR":       localAppData+"\\data",
+			"BOOKMARKS":      localAppData+"\\data\\bookmarks.json",
+			"BACKUPS":        localAppData+"\\backups",
 		}
 
-		if err := filemgr.WriteEnvFile(envValues["CONFIG_DIR"]+"/.env", envValues); err != nil {
+		if err := filemgr.WriteEnvFile(envValues["CONFIG_DIR"]+"\\.env", envValues); err != nil {
 			fmt.Println(err)
 			return
 		}
 
 		// application files
 		fMap := map[string]string{
-			"todo":      "./todo.md",
-			"bookmarks": "./data/bookmarks.json",
+			"todo":      localAppData+"\\todo.md",
+			"bookmarks": localAppData+"\\data\\bookmarks.json",
 		}
 
 		// Create additional files
