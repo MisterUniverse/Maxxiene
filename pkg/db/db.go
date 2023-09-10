@@ -41,6 +41,7 @@ func (ds *DataStorage) Exec(query string, args ...interface{}) {
 
 func (ds *DataStorage) InitializeTables() {
 	tableQueries := []string{
+		"CREATE TABLE IF NOT EXISTS todos (id INTEGER PRIMARY KEY, completed BOOL, task TEXT)",
 		"CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY, title TEXT, content TEXT)",
 		"CREATE TABLE IF NOT EXISTS files (id INTEGER PRIMARY KEY, filename TEXT, data BLOB)",
 		"CREATE TABLE IF NOT EXISTS pictures (id INTEGER PRIMARY KEY, filename TEXT, data BLOB)",
@@ -89,7 +90,7 @@ func (ds *DataStorage) ListItems(tableName string, scanTarget ItemScanner) ([]It
 
 	for rows.Next() {
 		// Make a new instance of the scanTarget type
-		newItem := scanTarget.(ItemScanner)
+		newItem := scanTarget.NewInstance()
 
 		if err := newItem.ScanRow(rows); err != nil {
 			return nil, err
