@@ -17,6 +17,14 @@ func IsDir(path string) bool {
 	return info.IsDir()
 }
 
+func IsFileThere(path string) bool {
+	_, err := os.Stat(path)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 // CreateDirectory creates a directory at the given path.
 func CreateDirectory(path string) error {
 	if err := os.MkdirAll(path, os.ModePerm); err != nil {
@@ -44,6 +52,11 @@ func WriteEnvFile(path string, values map[string]string) error {
 
 // CreateFile creates an empty file at the given path.
 func CreateFile(path string) error {
+	if IsFileThere(path) {
+		fmt.Println("File already exist: ", path)
+		return nil
+	}
+
 	file, err := os.Create(path)
 	if err != nil {
 		return fmt.Errorf("failed to create file %s: %w", path, err)

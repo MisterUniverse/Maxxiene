@@ -27,16 +27,16 @@ var saveCmd = &cobra.Command{
 			db.MaxxDB.Storage.InsertData("pictures", "filename, data", args[0], args[1])
 		case isHexDump:
 			fmt.Println("Saving a hex dump...")
-			db.MaxxDB.Storage.InsertData("hex_dumps", "description, data", "sample_hex_dump", hex.EncodeToString([]byte("hex dump")))
+			db.MaxxDB.Storage.InsertData("hex_dumps", "description, data", args[0], hex.EncodeToString([]byte(args[1])))
 		case isMemoryDump:
 			fmt.Println("Saving a memory dump...")
-			db.MaxxDB.Storage.InsertData("memory_dumps", "description, data", "sample_memory_dump", []byte{0xAA, 0xBB, 0xCC})
+			db.MaxxDB.Storage.InsertData("memory_dumps", "description, data", args[0], []byte(args[1]))
 		case isFile:
 			fmt.Println("Saving a file...")
-			db.MaxxDB.Storage.InsertData("files", "filename, data", "sample.txt", []byte("This is sample file data."))
+			db.MaxxDB.Storage.InsertData("files", "filename, data", args[0], []byte(args[1]))
 		default:
 			fmt.Println("Saving text data...")
-			db.MaxxDB.Storage.InsertData("notes", "content", "This is a sample note.")
+			db.MaxxDB.Storage.InsertData("notes", "title", "content", args[0], args[1])
 		}
 	},
 }
