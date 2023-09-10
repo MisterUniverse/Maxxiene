@@ -5,9 +5,9 @@ package task
 
 import (
 	"fmt"
+	"maxx/pkg/db"
 	"os"
 	"strconv"
-	"maxx/pkg/db"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -18,6 +18,7 @@ var deleteCmd = &cobra.Command{
 	Use:   "delete",
 	Short: "Deletes a task",
 	Run: func(cmd *cobra.Command, args []string) {
+		db.MaxxDB.Storage = db.NewDataStorage(viper.GetString("DATABASE"))
 		if len(args) == 0 {
 			fmt.Println("Please provide a task id to delete.")
 			return
@@ -35,7 +36,7 @@ var deleteCmd = &cobra.Command{
 
 func init() {
 	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData+"\\config\\.env")
+	viper.SetConfigFile(localAppData + "\\config\\.env")
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Printf("%s\n", err)
 	}

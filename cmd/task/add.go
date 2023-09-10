@@ -5,9 +5,9 @@ package task
 
 import (
 	"fmt"
+	"maxx/pkg/db"
 	"os"
 	"strings"
-	"maxx/pkg/db"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -20,7 +20,6 @@ var addCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		db.MaxxDB.Storage = db.NewDataStorage(viper.GetString("DATABASE"))
 		joined := strings.Join(args, " ")
-		// trimmed := strings.Trim(joined, "[]")
 
 		db.MaxxDB.Storage.InsertData("todos", "completed, task", false, joined)
 		fmt.Printf("Added a new task: \"%s\"\n", joined)
@@ -29,7 +28,7 @@ var addCmd = &cobra.Command{
 
 func init() {
 	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData+"\\config\\.env")
+	viper.SetConfigFile(localAppData + "\\config\\.env")
 	if err := viper.ReadInConfig(); err != nil {
 		fmt.Printf("%s\n", err)
 	}
