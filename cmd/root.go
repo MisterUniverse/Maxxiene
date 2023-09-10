@@ -19,6 +19,7 @@ package cmd
 import (
 	"fmt"
 	"maxx/cmd/convert"
+	"maxx/cmd/notes"
 	"maxx/cmd/proc"
 	"maxx/cmd/sites"
 	"maxx/cmd/task"
@@ -54,6 +55,7 @@ func addSubCommand() {
 	rootCmd.AddCommand(sites.SitesCmd)
 	rootCmd.AddCommand(convert.ConvertCmd)
 	rootCmd.AddCommand(proc.ProcCmd)
+	rootCmd.AddCommand(notes.NotesCmd)
 }
 
 func init() {

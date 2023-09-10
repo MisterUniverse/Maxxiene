@@ -7,26 +7,22 @@ package cmd
 
 import (
 	"fmt"
-	"os"
-
+	mdb "maxx/pkg/db"
 	"maxx/pkg/filemgr"
+	"os"
 
 	"github.com/spf13/cobra"
 )
+
+var workingDir string
 
 // setupCmd represents the setup command
 var setupCmd = &cobra.Command{
 	Use:   "setup",
 	Short: "Set up initial configuration",
 	Run: func(cmd *cobra.Command, args []string) {
-		localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-		if localAppData == "" {
-			fmt.Println("Could not find LOCALAPPDATA environment variable")
-			return
-		}
-
 		// Create directories
-		directories := []string{localAppData, localAppData+"\\backups", localAppData+"\\config", localAppData+"\\data"}
+		directories := []string{workingDir, workingDir + "\\backups", workingDir + "\\config", workingDir + "\\data"}
 		for _, dir := range directories {
 			if err := filemgr.CreateDirectory(dir); err != nil {
 				fmt.Println(err)
@@ -36,22 +32,26 @@ var setupCmd = &cobra.Command{
 
 		// Create .env file
 		envValues := map[string]string{
-			"TODO_FILE_PATH": localAppData+"\\todo.md",
-			"CONFIG_DIR":     localAppData+"\\config",
-			"DATA_DIR":       localAppData+"\\data",
-			"BOOKMARKS":      localAppData+"\\data\\bookmarks.json",
-			"BACKUPS":        localAppData+"\\backups",
+			"TODO_FILE_PATH": workingDir + "\\todo.md",
+			"CONFIG_DIR":     workingDir + "\\config",
+			"DATA_DIR":       workingDir + "\\data",
+			"BOOKMARKS":      workingDir + "\\data\\bookmarks.json",
+			"BACKUPS":        workingDir + "\\backups",
+			"DATABASE":       workingDir + "\\data\\maxxdb.db",
 		}
 
 		if err := filemgr.WriteEnvFile(envValues["CONFIG_DIR"]+"\\.env", envValues); err != nil {
 			fmt.Println(err)
 			return
 		}
+		mdb.MaxxDB = mdb.MaxxDataBase{}
+		mdb.MaxxDB.Storage = mdb.NewDataStorage(envValues["DATA_DIR"] + "\\maxxdb.db")
+		mdb.MaxxDB.Storage.InitializeTables()
 
 		// application files
 		fMap := map[string]string{
-			"todo":      localAppData+"\\todo.md",
-			"bookmarks": localAppData+"\\data\\bookmarks.json",
+			"todo":      workingDir + "\\todo.md",
+			"bookmarks": workingDir + "\\data\\bookmarks.json",
 		}
 
 		// Create additional files
@@ -68,5 +68,11 @@ var setupCmd = &cobra.Command{
 }
 
 func init() {
+	workingDir = os.Getenv("LOCALAPPDATA") + "\\maxxiene"
+	if workingDir == "" {
+		fmt.Println("Could not find LOCALAPPDATA environment variable")
+		return
+	}
+
 	rootCmd.AddCommand(setupCmd)
 }
