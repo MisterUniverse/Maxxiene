@@ -26,7 +26,7 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List all bookmarks",
 	Run: func(cmd *cobra.Command, args []string) {
-		data, err := os.ReadFile(viper.GetString("BOOKMARKS"))
+		data, err := os.ReadFile(viper.GetString("paths.BOOKMARKS"))
 		if err != nil {
 			fmt.Println("Error:", err)
 			return
@@ -44,21 +44,5 @@ var listCmd = &cobra.Command{
 }
 
 func init() {
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData+"\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
-
 	SitesCmd.AddCommand(listCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// listCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// listCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

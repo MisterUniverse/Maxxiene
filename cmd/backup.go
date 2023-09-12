@@ -8,12 +8,12 @@ import (
 	"maxx/pkg/filemgr"
 	"path/filepath"
 	"time"
-	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
 
+// backupCmd represents the backup command
 var backupCmd = &cobra.Command{
 	Use:   "backup",
 	Short: "Backup a file or directory",
@@ -36,10 +36,8 @@ func runBackup(cmd *cobra.Command, args []string) {
 
 func backupAllFromMap() {
 	paths := map[string]string{
-		"todo":   viper.GetString("TODO_FILE_PATH"),
-		"config": viper.GetString("CONFIG_DIR"),
-		"data":   viper.GetString("DATA_DIR"),
-		// more files or directories
+		"config": viper.GetString("paths.CONFIG_DIR"),
+		"data":   viper.GetString("paths.DATA_DIR"),
 	}
 
 	for _, path := range paths {
@@ -57,7 +55,7 @@ func backupSingle(path string) {
 
 func backup(path string) error {
 	timestamp := time.Now().Format("20060102-150405")
-	backupFileName := filepath.Join(viper.GetString("BACKUPS"), fmt.Sprintf("%s-%s", filepath.Base(path), timestamp))
+	backupFileName := filepath.Join(viper.GetString("paths.BACKUPS"), fmt.Sprintf("%s-%s", filepath.Base(path), timestamp))
 
 	var backupable filemgr.Backupable
 
@@ -77,10 +75,4 @@ func backup(path string) error {
 func init() {
 	backupCmd.Flags().BoolP("config", "c", false, "Backup every value from a predefined map")
 	rootCmd.AddCommand(backupCmd)
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData+"\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
-
 }

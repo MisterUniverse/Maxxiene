@@ -19,7 +19,7 @@ var allCmd = &cobra.Command{
 	Use:   "all",
 	Short: "A brief description of your command",
 	Run: func(cmd *cobra.Command, args []string) {
-		data, err := os.ReadFile(viper.GetString("BOOKMARKS"))
+		data, err := os.ReadFile(viper.GetString("paths.BOOKMARKS"))
 		if err != nil {
 			fmt.Println("Error:", err)
 			return

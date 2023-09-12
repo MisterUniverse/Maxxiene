@@ -7,13 +7,10 @@ import (
 	"fmt"
 	"log"
 	"maxx/pkg/db"
-	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
-
-var isNote bool
 
 var dataType string
 
@@ -22,7 +19,7 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "List different types of data",
 	Run: func(cmd *cobra.Command, args []string) {
-		db.MaxxDB.Storage = db.NewDataStorage(viper.GetString("DATABASE"))
+		db.MaxxDB.Storage = db.NewDataStorage(viper.GetString("paths.DATABASE"))
 
 		var items []db.ItemScanner
 		var err error
@@ -74,11 +71,6 @@ func logError(err error) {
 }
 
 func init() {
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData + "\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
 	listCmd.Flags().StringVarP(&dataType, "type", "t", "note", "Data type to list (photo, hexdmp, memdmp, file, note)")
 	NotesCmd.AddCommand(listCmd)
 }

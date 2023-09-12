@@ -5,7 +5,6 @@ package proc
 
 import (
 	"fmt"
-	"os"
 	"maxx/pkg/procmgr"
 
 	"github.com/spf13/cobra"
@@ -65,7 +64,7 @@ func createMemoryDump(pid int, name string) error {
 	}
 	defer windows.CloseHandle(handle)
 
-	dumpFilePtr, err := windows.UTF16PtrFromString(viper.GetString("DATA_DIR") + "/" + name + ".dmp")
+	dumpFilePtr, err := windows.UTF16PtrFromString(viper.GetString("paths.DATA_DIR") + "/" + name + ".dmp")
 	if err != nil {
 		return err
 	}
@@ -93,21 +92,5 @@ func createMemoryDump(pid int, name string) error {
 }
 
 func init() {
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData+"\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
-
 	ProcCmd.AddCommand(dumpCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// dumpCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// dumpCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

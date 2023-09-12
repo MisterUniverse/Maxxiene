@@ -43,14 +43,4 @@ var md2htmlCmd = &cobra.Command{
 
 func init() {
 	ConvertCmd.AddCommand(md2htmlCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// md2htmlCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// md2htmlCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

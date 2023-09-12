@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
+	toml "github.com/pelletier/go-toml"
 	"golang.org/x/sys/windows"
 )
 
@@ -33,8 +34,28 @@ func CreateDirectory(path string) error {
 	return nil
 }
 
+// CreateTOMLFile creates a TOML file using a given map and file name
+func CreateTOMLFile(settings map[string]map[string]string, filename string) error {
+	// Create or open the file
+	file, err := os.Create(filename)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	encoder := toml.NewEncoder(file)
+
+	// Encode the map into the file
+	err = encoder.Encode(settings)
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // WriteEnvFile writes key-value pairs to a .env file.
-func WriteEnvFile(path string, values map[string]string) error {
+func CreateEnvFile(path string, values map[string]string) error {
 	file, err := os.Create(path)
 	if err != nil {
 		return fmt.Errorf("failed to create .env file: %w", err)

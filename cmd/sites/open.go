@@ -19,7 +19,7 @@ var openCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		bookmarkName := args[0]
-		data, err := os.ReadFile(viper.GetString("BOOKMARKS"))
+		data, err := os.ReadFile(viper.GetString("paths.BOOKMARKS"))
 		if err != nil {
 			fmt.Println("Error:", err)
 			return
@@ -43,10 +43,5 @@ var openCmd = &cobra.Command{
 }
 
 func init() {
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData + "\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
 	SitesCmd.AddCommand(openCmd)
 }

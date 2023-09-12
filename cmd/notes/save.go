@@ -7,7 +7,6 @@ import (
 	"encoding/hex"
 	"fmt"
 	"maxx/pkg/db"
-	"os"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -20,7 +19,7 @@ var saveCmd = &cobra.Command{
 	Use:   "save",
 	Short: "Save different types of data",
 	Run: func(cmd *cobra.Command, args []string) {
-		db.MaxxDB.Storage = db.NewDataStorage(viper.GetString("DATABASE"))
+		db.MaxxDB.Storage = db.NewDataStorage(viper.GetString("paths.DATABASE"))
 		switch {
 		case isPhoto:
 			fmt.Println("Saving a photo...")
@@ -42,11 +41,6 @@ var saveCmd = &cobra.Command{
 }
 
 func init() {
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData + "\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
 	saveCmd.Flags().BoolVarP(&isPhoto, "photo", "p", false, "Save as a photo")
 	saveCmd.Flags().BoolVarP(&isHexDump, "hexdmp", "x", false, "Save as a hex dump")
 	saveCmd.Flags().BoolVarP(&isMemoryDump, "memdmp", "m", false, "Save as a memory dump")

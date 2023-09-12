@@ -5,7 +5,6 @@ package task
 
 import (
 	"fmt"
-	"os"
 	"maxx/pkg/db"
 
 	"github.com/spf13/cobra"
@@ -17,8 +16,7 @@ var listCmd = &cobra.Command{
 	Use:   "list",
 	Short: "Lists all tasks",
 	Run: func(cmd *cobra.Command, args []string) {
-		db.MaxxDB.Storage = db.NewDataStorage(viper.GetString("DATABASE"))
-
+		db.MaxxDB.Storage = db.NewDataStorage(viper.GetString("paths.DATABASE"))
 		var items []db.ItemScanner
 		var err error
 
@@ -43,11 +41,5 @@ func logError(err error) {
 }
 
 func init() {
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData+"\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
-
 	TaskCmd.AddCommand(listCmd)
 }

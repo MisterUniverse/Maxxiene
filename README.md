@@ -5,11 +5,13 @@ A personalized cli for day to day tasks.
 **COMMANDS:**
 - `maxx backup`: "Backup a file or directory"
 - `maxx convert`: "A way to convert files"
+- `maxx crypto`: "Encrypt/decrypt"
+- `maxx notes`: "Stores notes, files, photos, and dumps in the database"
 - `maxx proc`: "Running process utilities"
-- `maxx setup`: "Set up initial configuration"
 - `maxx shred`: "Shreds a file or directory"
 - `maxx sites`: "A simple bookmark manager"
 - `maxx task`: "Task/todo manager"
+- `maxx uwu`: "..."
 - `maxx version`: "Prints the version number"
 
 
@@ -20,13 +22,20 @@ A personalized cli for day to day tasks.
 ## convert cmd
 - `maxx convert md2html` "Converts a markdown file into an html file"
 
+## crypto cmd
+- `maxx crypto encrypt`: "encrypts a line of text"
+- `maxx crypto decrypt`: "decrypts a line of text that was encrypted by you"
+
+## notes cmd
+- `maxx notes save`
+
 ## proc cmd
 - `maxx proc dump {process name}`: "Creates a memory dump"
 - `maxx proc kill {process name}`: "Kills a running process"
 - `maxx proc watch {process name}`: "Monitors a running process memory and cpu usage"
 
 ## setup cmd
-- `maxx setup` Sets up the initial configuration. ex:(todo.md, cofig/.env, data, etc.).
+- `maxx setup` Sets up the initial configuration. ex:(maxxdb.db, cofig/.env, data, etc.).
 
 ## shred cmd
 - `maxx shred {fileOrDirectory}`: Delete a file or directory
@@ -37,6 +46,9 @@ A personalized cli for day to day tasks.
 - `maxx sites delete {name}` Deletes a bookmark by name from bookmarks.json 
 
 ## tasks cmd
-- `maxx task add {task}` Adds a task to the todo list (./todo.md).
+- `maxx task add {task}` Adds a task to the todo list.
 - `maxx task list` List all tasks on todo list.
 - `maxx task delete {index}` deletes a task at a given index.
+
+## uwu cmd
+- `maxx uwu`: "For those down bad days..."

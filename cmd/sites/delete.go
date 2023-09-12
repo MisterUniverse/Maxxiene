@@ -23,7 +23,7 @@ var deleteCmd = &cobra.Command{
 			if bookmark.Name == name {
 				bookmarks = append(bookmarks[:i], bookmarks[i+1:]...)
 				bookmarkJSON, _ := json.Marshal(bookmarks)
-				os.WriteFile(viper.GetString("BOOKMARKS"), bookmarkJSON, 0644)
+				os.WriteFile(viper.GetString("paths.BOOKMARKS"), bookmarkJSON, 0644)
 				fmt.Printf("Removed bookmark: %s\n", name)
 				return
 			}
@@ -33,21 +33,5 @@ var deleteCmd = &cobra.Command{
 }
 
 func init() {
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData+"\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
-
 	SitesCmd.AddCommand(deleteCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// deleteCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// deleteCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

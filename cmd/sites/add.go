@@ -32,7 +32,7 @@ var addCmd = &cobra.Command{
 		bookmarks = append(bookmarks, Bookmark{Name: name, URL: url, Category: category})
 		bookmarkJSON, _ := json.Marshal(bookmarks)
 
-		err := os.WriteFile(viper.GetString("BOOKMARKS"), bookmarkJSON, 0644)
+		err := os.WriteFile(viper.GetString("paths.BOOKMARKS"), bookmarkJSON, 0644)
 		if err != nil {
 			fmt.Println("Error:", err)
 			return
@@ -42,22 +42,6 @@ var addCmd = &cobra.Command{
 }
 
 func init() {
-	localAppData := os.Getenv("LOCALAPPDATA") + "\\maxxiene"
-	viper.SetConfigFile(localAppData+"\\config\\.env")
-	if err := viper.ReadInConfig(); err != nil {
-		fmt.Printf("%s\n", err)
-	}
-
 	addCmd.Args = cobra.ExactArgs(3)
 	SitesCmd.AddCommand(addCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// addCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// addCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
