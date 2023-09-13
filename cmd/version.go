@@ -11,7 +11,7 @@ var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Print the version number of Maxxiene",
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("Maxxiene v0.4")
+		fmt.Println("Maxxiene v0.5")
 	},
 }
 

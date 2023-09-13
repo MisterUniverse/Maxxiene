@@ -43,6 +43,7 @@ A personalized cli for day to day tasks.
 - `maxx proc dump {process name}`: "Creates a memory dump"
 - `maxx proc kill {process name}`: "Kills a running process"
 - `maxx proc watch {process name}`: "Monitors a running process memory and cpu usage"
+- `maxx proc inject {process name} {payload}`: "Injects a dll into a running process"
 
 ## setup cmd
 - `maxx setup` Sets up the initial configuration. ex:(maxxdb.db, cofig/.env, data, etc.).

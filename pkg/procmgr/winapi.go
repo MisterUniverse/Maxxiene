@@ -18,9 +18,22 @@ type WindowsProc struct {
 	Exe             string
 }
 
+type winProc windows.Handle
+
+const (
+	VirtualAllocMemCommit  = 0x00001000
+	VirtualAllocMemReserve = 0x00002000
+	PageReadWrite          = 0x04
+	SizeOfChar             = 4
+)
+
 var (
-	ErrProcessNotFound = errors.New("process not found")
-	ErrCreateSnapshot  = errors.New("create snapshot error")
+	kernel32Module         = windows.NewLazySystemDLL("kernel32.dll")
+	procGetModuleHandle    = kernel32Module.NewProc("GetModuleHandleW")
+	procVirtualAllocEx     = kernel32Module.NewProc("VirtualAllocEx")
+	procCreateRemoteThread = kernel32Module.NewProc("CreateRemoteThread")
+	ErrProcessNotFound     = errors.New("process not found")
+	ErrCreateSnapshot      = errors.New("create snapshot error")
 )
 
 func ProcessID(name string) (uint32, error) {
@@ -96,8 +109,6 @@ func FindProcessByName(processes []WindowsProc, name string) int {
 	return 0
 }
 
-type winProc windows.Handle
-
 // returns a pointer to a process handle
 func OpenProcessHandle(processID int) (winProc, error) {
 	const PROCESS_ALL_ACCESS = 0x1F0FFF
@@ -107,20 +118,6 @@ func OpenProcessHandle(processID int) (winProc, error) {
 	}
 	return winProc(handle), nil
 }
-
-const (
-	VirtualAllocMemCommit  = 0x00001000
-	VirtualAllocMemReserve = 0x00002000
-	PageReadWrite          = 0x04
-	SizeOfChar             = 4
-)
-
-var (
-	kernel32Module         = windows.NewLazySystemDLL("kernel32.dll")
-	procGetModuleHandle    = kernel32Module.NewProc("GetModuleHandleW")
-	procVirtualAllocEx     = kernel32Module.NewProc("VirtualAllocEx")
-	procCreateRemoteThread = kernel32Module.NewProc("CreateRemoteThread")
-)
 
 /*
 Original Function:
@@ -173,35 +170,6 @@ func CreateRemoteThread(hProcess windows.Handle, lpThreadAttributes uintptr, dwS
 
 	return ret
 }
-
-// func main() {
-// 	payload := "C:\\Users\\CelineFranchesca\\Projects\\ProcessInjector\\payload\\hello-world-x64.dll"
-// 	// Gets processid returns a unint32
-// 	a, err := proc.ProcessID("explorer.exe")
-// 	if err != nil {
-// 		fmt.Println(err)
-// 		return
-// 	}
-
-// 	// returns a ptr to a process handle
-// 	// ptr := proc.OpenProcessHandle(int(a))
-// 	// fmt.Println(ptr)
-
-// 	// // returns a list of processes
-// 	// list, err := proc.Processes()
-// 	// if err != nil {
-// 	// 	fmt.Println(err)
-// 	// 	return
-// 	// }
-
-// 	//proc.FindProcessByName(list, os.Args[1])
-
-// 	// finds a process in the list by name and injects code
-// 	err = InjectDLL(a, payload)
-// 	if err != nil {
-// 		fmt.Println("Error injecting DLL:", err)
-// 	}
-// }
 
 func InjectDLL(pid uint32, dll string) error {
 	if f, err := os.Stat(dll); err != nil || f.IsDir() {
