@@ -6,6 +6,7 @@ A personalized cli for day to day tasks.
 - `maxx backup`: "Backup a file or directory"
 - `maxx convert`: "A way to convert files"
 - `maxx crypto`: "Encrypt/decrypt"
+- `maxx firewall` "Edit windows firewall rules"
 - `maxx notes`: "Stores notes, files, photos, and dumps in the database"
 - `maxx proc`: "Running process utilities"
 - `maxx shred`: "Shreds a file or directory"
@@ -25,6 +26,15 @@ A personalized cli for day to day tasks.
 ## crypto cmd
 - `maxx crypto encrypt`: "encrypts a line of text"
 - `maxx crypto decrypt`: "decrypts a line of text that was encrypted by you"
+
+## firewall cmd
+- `maxx firewall add` "Add windows firewall rules"
+- `maxx firewall list` "List windows firewall rules"
+- `maxx firewall del` "Delete windows firewall rules"
+- `maxx firewall enable` "Enable windows firewall for specific profile"
+- `maxx firewall disable` "Disable windows firewall for specific profile"
+- `maxx firewall export` "Export windows firewall rules as binary and text file"
+- `maxx firewall import` "Imports windows firewall rules binary file"
 
 ## notes cmd
 - `maxx notes save`
