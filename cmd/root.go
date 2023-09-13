@@ -22,6 +22,7 @@ import (
 	"fmt"
 	"maxx/cmd/convert"
 	"maxx/cmd/crypto"
+	"maxx/cmd/firewall"
 	"maxx/cmd/notes"
 	"maxx/cmd/proc"
 	"maxx/cmd/sites"
@@ -63,6 +64,7 @@ func addSubCommand() {
 	rootCmd.AddCommand(convert.ConvertCmd)
 	rootCmd.AddCommand(proc.ProcCmd)
 	rootCmd.AddCommand(notes.NotesCmd)
+	rootCmd.AddCommand(firewall.FirewallCmd)
 }
 
 func init() {
