@@ -23,7 +23,7 @@ var bookmarks []Bookmark
 // addCmd represents the add command
 var addCmd = &cobra.Command{
 	Use:   "add",
-	Short: "Add a bookmark",
+	Short: "Add a bookmark {name} {url} {category}",
 	Run: func(cmd *cobra.Command, args []string) {
 		name := args[0]
 		url := args[1]

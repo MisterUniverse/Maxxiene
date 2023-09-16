@@ -3,7 +3,9 @@ module maxx
 go 1.19
 
 require (
+	github.com/Yakiyo/nekos_best.go v1.0.0
 	github.com/mattn/go-sqlite3 v1.14.17
+	github.com/pelletier/go-toml v1.9.5
 	github.com/pkg/browser v0.0.0-20210911075715-681adbf594b8
 	github.com/russross/blackfriday/v2 v2.1.0
 	github.com/shirou/gopsutil/v3 v3.23.8
@@ -20,7 +22,6 @@ require (
 	github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
-	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.8 // indirect
 	github.com/power-devops/perfstat v0.0.0-20210106213030-5aafc221ea8c // indirect
 	github.com/shoenig/go-m1cpu v0.1.6 // indirect

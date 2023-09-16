@@ -9,15 +9,23 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var meow bool
+
 // uwuCmd represents the uwu command
 var uwuCmd = &cobra.Command{
 	Use:   "uwu",
-	Short: "random waifu",
+	Short: "Summon a random waifu",
 	Run: func(cmd *cobra.Command, args []string) {
-		waifuim.GetWaifu()
+		switch meow {
+		case true:
+			waifuim.GetWaifuMeow()
+		default:
+			waifuim.GetWaifu()
+		}
 	},
 }
 
 func init() {
+	uwuCmd.Flags().BoolVar(&meow, "meow", false, "uwu meow...")
 	rootCmd.AddCommand(uwuCmd)
 }

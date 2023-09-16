@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/url"
 
+	nb "github.com/Yakiyo/nekos_best.go"
 	"github.com/pkg/browser"
 )
 
@@ -92,5 +93,21 @@ func GetWaifu() {
 		}
 	} else {
 		fmt.Println("Request failed with status code:", resp.StatusCode)
+	}
+}
+
+func GetWaifuMeow() {
+	res, err := nb.Fetch("neko")
+	if err != nil {
+		fmt.Println("Error fetching neko:", err)
+		return
+	}
+
+	fmt.Println(res.Url, res.Artist_name, res.Artist_href)
+
+	// Open the image URL in the default web browser
+	err = browser.OpenURL(res.Url)
+	if err != nil {
+		fmt.Println("Error opening browser:", err)
 	}
 }
