@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 
 	toml "github.com/pelletier/go-toml"
 	"golang.org/x/sys/windows"
@@ -24,6 +25,39 @@ func IsFileThere(path string) bool {
 		return false
 	}
 	return true
+}
+
+func BackupAllFromMap(paths map[string]string, dst string) {
+	for _, path := range paths {
+		if err := backup(path, dst); err != nil {
+			fmt.Printf("Failed to backup %s: %s\n", path, err)
+		}
+	}
+}
+
+func BackupSingle(path, dst string) {
+	if err := backup(path, dst); err != nil {
+		fmt.Printf("Failed to backup %s: %s\n", path, err)
+	}
+}
+
+func backup(path, dst string) error {
+	timestamp := time.Now().Format("20060102-150405")
+	backupFileName := filepath.Join(dst, fmt.Sprintf("%s-%s", filepath.Base(path), timestamp))
+
+	var backupable Backupable
+
+	if IsDir(path) {
+		backupable = NewDirBackup(path, fmt.Sprintf("%s.zip", backupFileName))
+	} else {
+		backupable = NewFileBackup(path, backupFileName+".mxbkup")
+	}
+
+	if err := backupable.Backup(); err != nil {
+		return err
+	}
+	fmt.Println("Backup successful:", backupFileName)
+	return nil
 }
 
 // CreateDirectory creates a directory at the given path.

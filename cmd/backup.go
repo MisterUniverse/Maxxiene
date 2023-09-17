@@ -6,8 +6,7 @@ package cmd
 import (
 	"fmt"
 	"maxx/pkg/filemgr"
-	"path/filepath"
-	"time"
+	"os/exec"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -16,14 +15,30 @@ import (
 // backupCmd represents the backup command
 var backupCmd = &cobra.Command{
 	Use:   "backup",
-	Short: "Backup a file or directory",
+	Short: "Backup a file: or directory",
 	Run:   runBackup,
 }
 
 func runBackup(cmd *cobra.Command, args []string) {
+	dst := viper.GetString("paths.BACKUPS")
+
+	auto, _ := cmd.Flags().GetBool("auto")
+	if auto {
+		if len(args) < 2 {
+			fmt.Println("Must enter path/to/cellardoor/settings.json and path/to/cellardoor/main.py")
+			return
+		}
+		filemgr.CellarDoor(args[0], args[1])
+		return
+	}
+
 	config, _ := cmd.Flags().GetBool("config")
 	if config {
-		backupAllFromMap()
+		paths := map[string]string{
+			"config": viper.GetString("paths.CONFIG_DIR"),
+			"data":   viper.GetString("paths.DATA_DIR"),
+		}
+		filemgr.BackupAllFromMap(paths, dst)
 		return
 	}
 
@@ -31,48 +46,22 @@ func runBackup(cmd *cobra.Command, args []string) {
 		fmt.Println("You must specify a file or directory to backup")
 		return
 	}
-	backupSingle(args[0])
+	filemgr.BackupSingle(args[0], dst)
 }
 
-func backupAllFromMap() {
-	paths := map[string]string{
-		"config": viper.GetString("paths.CONFIG_DIR"),
-		"data":   viper.GetString("paths.DATA_DIR"),
-	}
-
-	for _, path := range paths {
-		if err := backup(path); err != nil {
-			fmt.Printf("Failed to backup %s: %s\n", path, err)
-		}
-	}
+// executeCommand executes a shell command and returns its output
+func executeCommand(command string, args ...string) (string, error) {
+	cmd := exec.Command(command, args...)
+	output, err := cmd.CombinedOutput()
+	return string(output), err
 }
 
-func backupSingle(path string) {
-	if err := backup(path); err != nil {
-		fmt.Printf("Failed to backup %s: %s\n", path, err)
-	}
-}
-
-func backup(path string) error {
-	timestamp := time.Now().Format("20060102-150405")
-	backupFileName := filepath.Join(viper.GetString("paths.BACKUPS"), fmt.Sprintf("%s-%s", filepath.Base(path), timestamp))
-
-	var backupable filemgr.Backupable
-
-	if filemgr.IsDir(path) {
-		backupable = filemgr.NewDirBackup(path, fmt.Sprintf("%s.zip", backupFileName))
-	} else {
-		backupable = filemgr.NewFileBackup(path, backupFileName+".mxbkup")
-	}
-
-	if err := backupable.Backup(); err != nil {
-		return err
-	}
-	fmt.Println("Backup successful:", backupFileName)
-	return nil
+func cellarDoor() {
+	//executeCommand("python", viper.GetString(), )
 }
 
 func init() {
 	backupCmd.Flags().BoolP("config", "c", false, "Backup every value from a predefined map")
+	backupCmd.Flags().BoolP("auto", "a", false, "Auto backup using CellarDoor")
 	rootCmd.AddCommand(backupCmd)
 }

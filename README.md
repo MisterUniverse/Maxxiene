@@ -19,6 +19,7 @@ A personalized cli for day to day tasks.
 ## backup cmd
 - `maxx backup {FileOrDirectory}`: Backup a file or directory. Files get saved as a .mxbkup file
 - `maxx backup --config or -c`: Backs up the app configuration and supporting files
+- `maxx backup --auto or -a {path/to/setting.json} {path/to/main.py}`: This cmd depends on having the [CellarDoor](https://github.com/JarrodBurns/CellarDoor) repo downloaded. 
 
 ## convert cmd
 - `maxx convert md2html` "Converts a markdown file into an html file"
@@ -63,3 +64,10 @@ A personalized cli for day to day tasks.
 
 ## uwu cmd
 - `maxx uwu`: "For those down bad days..."
+- `maxx uwu --meow`: "Uhhh..."
+
+
+## TODO:
+- [] Need to clean up backup code
+- [] Notes cmd needs complete rework
+- [] Updates to crypto command
