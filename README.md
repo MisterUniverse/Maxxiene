@@ -71,3 +71,4 @@ A personalized cli for day to day tasks.
 - [] Need to clean up backup code
 - [] Notes cmd needs complete rework
 - [] Updates to crypto command
+- [] Add networking commands
