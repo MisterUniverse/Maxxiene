@@ -6,7 +6,6 @@ package cmd
 import (
 	"fmt"
 	"maxx/pkg/filemgr"
-	"os/exec"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -47,17 +46,6 @@ func runBackup(cmd *cobra.Command, args []string) {
 		return
 	}
 	filemgr.BackupSingle(args[0], dst)
-}
-
-// executeCommand executes a shell command and returns its output
-func executeCommand(command string, args ...string) (string, error) {
-	cmd := exec.Command(command, args...)
-	output, err := cmd.CombinedOutput()
-	return string(output), err
-}
-
-func cellarDoor() {
-	//executeCommand("python", viper.GetString(), )
 }
 
 func init() {
