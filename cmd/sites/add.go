@@ -29,14 +29,40 @@ var addCmd = &cobra.Command{
 		url := args[1]
 		category := args[2]
 
-		bookmarks = append(bookmarks, Bookmark{Name: name, URL: url, Category: category})
-		bookmarkJSON, _ := json.Marshal(bookmarks)
+		// Step 1: Read the existing JSON file
+		filePath := viper.GetString("paths.BOOKMARKS")
+		fileContent, err := os.ReadFile(filePath)
+		if err != nil && !os.IsNotExist(err) {
+			fmt.Println("Error reading file:", err)
+			return
+		}
 
-		err := os.WriteFile(viper.GetString("paths.BOOKMARKS"), bookmarkJSON, 0644)
+		// If file exists and has content, unmarshal it
+		if len(fileContent) > 0 {
+			err = json.Unmarshal(fileContent, &bookmarks)
+			if err != nil {
+				fmt.Println("Error unmarshalling JSON:", err)
+				return
+			}
+		}
+
+		// Step 2 & 3: Append new Bookmark to the slice
+		bookmarks = append(bookmarks, Bookmark{Name: name, URL: url, Category: category})
+
+		// Step 4: Marshal the updated slice back into JSON
+		bookmarkJSON, err := json.Marshal(bookmarks)
+		if err != nil {
+			fmt.Println("Error marshalling JSON:", err)
+			return
+		}
+
+		// Step 5: Write the updated JSON back to the file
+		err = os.WriteFile(filePath, bookmarkJSON, 0644)
 		if err != nil {
 			fmt.Println("Error:", err)
 			return
 		}
+
 		fmt.Printf("Added bookmark: %s\n", name)
 	},
 }

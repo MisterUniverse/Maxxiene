@@ -11,6 +11,8 @@ import (
 	"github.com/pkg/browser"
 )
 
+// Need to clean this code up. Also using two different waifu apis i guess the difference is that one is for cat waifus and the other is normal waifus
+
 type Artist struct {
 	ArtistID   int     `json:"artist_id"`
 	Name       string  `json:"name"`
