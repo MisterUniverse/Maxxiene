@@ -156,11 +156,12 @@ func createInitialConfig() {
 		"log":      {"level": "info"},
 		"crypto":   {"aes_key": keyHex},
 		"paths": {
-			"CONFIG":    fmt.Sprintf("%s\\config\\maxx.toml", maxxWorkingDir),
-			"DATA_DIR":  fmt.Sprintf("%s\\data", maxxWorkingDir),
-			"BOOKMARKS": fmt.Sprintf("%s\\data\\bookmarks.json", maxxWorkingDir),
-			"BACKUPS":   fmt.Sprintf("%s\\backups", maxxWorkingDir),
-			"DATABASE":  fmt.Sprintf("%s\\data\\maxxdb.db", maxxWorkingDir),
+			"CONFIG_DIR": fmt.Sprintf("%s\\config", maxxWorkingDir),
+			"CONFIG":     fmt.Sprintf("%s\\config\\maxx.toml", maxxWorkingDir),
+			"DATA_DIR":   fmt.Sprintf("%s\\data", maxxWorkingDir),
+			"BOOKMARKS":  fmt.Sprintf("%s\\data\\bookmarks.json", maxxWorkingDir),
+			"BACKUPS":    fmt.Sprintf("%s\\backups", maxxWorkingDir),
+			"DATABASE":   fmt.Sprintf("%s\\data\\maxxdb.db", maxxWorkingDir),
 		},
 	}
 
