@@ -12,6 +12,7 @@ A personalized cli for day to day tasks.
 - `maxx shred`: "Shreds a file or directory"
 - `maxx sites`: "A simple bookmark manager"
 - `maxx task`: "Task/todo manager"
+- `maxx unblock`: "Unblocks files"
 - `maxx uwu`: "..."
 - `maxx version`: "Prints the version number"
 
@@ -61,6 +62,9 @@ A personalized cli for day to day tasks.
 - `maxx task add {task}` Adds a task to the todo list.
 - `maxx task list` List all tasks on todo list.
 - `maxx task delete {index}` deletes a task at a given index.
+
+## unblock cmd
+- `maxx unblock {path}` Unblocks all files in directory and sub-directories
 
 ## uwu cmd
 - `maxx uwu`: "For those down bad days..."
